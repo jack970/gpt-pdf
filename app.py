@@ -44,7 +44,7 @@ def new_chat():
     st.session_state["generated"] = []
     st.session_state["past"] = []
 
-tab1, tab2 = st.tabs(["", "Conversar"])
+tab1, tab2 = st.tabs(["Conversar", ""])
 # st.sidebar.button("Novo Chat", on_click=new_chat, type='primary')
 keys = st.session_state.keys()
 
@@ -73,7 +73,7 @@ keys = st.session_state.keys()
 #         )
 
 # Tabela para conversar com um assunto aprendido
-with tab2:
+with tab1:
     st.markdown("### Conversar:")
 
     if  openai_api_key:
@@ -100,11 +100,14 @@ with tab2:
             
             if user_input:
                 # Obtem resposta do modelo
+                try:
+                    output = chat(qa, user_input)
                 
-                output = chat(qa, user_input)
-                # Salvar o retorno no array de historico da conversa
-                st.session_state.past.append(user_input)
-                st.session_state.generated.append(output)
+                    # Salvar o retorno no array de historico da conversa
+                    st.session_state.past.append(user_input)
+                    st.session_state.generated.append(output)
+                except Exception as e:
+                    st.error("Ocorreu algum com a chave da api!", icon="🚨")
             
             # Mostra o chat
             with st.expander("Histórico de Conversa"):
