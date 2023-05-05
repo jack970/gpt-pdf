@@ -1,0 +1,10 @@
+ai
+db/chroma
+.env
+env
+env_prod
+.git
+modelo_whisper/large
+modelo_whisper/medium
+__pycache__
+chroma_logs.log
